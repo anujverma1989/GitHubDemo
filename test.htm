@@ -1,0 +1,40 @@
+<script>
+    const pObj = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const rollNumber = [1, 2, 3, 4, 5];
+            resolve(rollNumber);
+            //reject("this is error message");
+        }, 2000);
+    });
+
+    const getBiodata = (roolNumIndex) => {
+        return new Promise((resolve, reject) => {
+            setTimeout((roolNumIndex) => {
+                let bioData = {
+                    age: 34, name: "test user"
+                };
+                resolve(`My roll number index is ${roolNumIndex} and my name is ${bioData.name} with my age ${bioData.age}`);
+            }, 2000, roolNumIndex);
+        });
+    };
+
+    // pObj.then((rollNo) => {
+    //     console.log(rollNo);
+    //     return getBiodata(rollNo[2]);
+    // }).then((result) => console.log(result))
+    //     .catch((err) => console.log(err));
+
+    const getUserBioData = async () => {
+        const userRollNo = await pObj;
+        console.log(userRollNo);
+
+        return getBiodata(userRollNo[4]);
+    }
+
+    getUserBioData().then((userData) => {
+        console.log(userData);
+    }).catch((err) => console.log(err));
+
+
+
+</script>
